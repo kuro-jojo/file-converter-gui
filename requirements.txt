@@ -1,0 +1,4 @@
+pillow
+Spire.Doc
+git+https://github.com/RedFantom/ttkthemes
+pdf2image
