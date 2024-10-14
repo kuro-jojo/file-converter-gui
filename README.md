@@ -1,6 +1,6 @@
 # File Converter GUI
 
-x## Overview
+## Overview
 This project is a graphical user interface (GUI) application that allows users to convert files from one format to another. It supports various file formats and provides a user-friendly interface for easy file conversion.
 
 ## Features
@@ -17,7 +17,7 @@ This project is a graphical user interface (GUI) application that allows users t
 ## Installation
 1. Clone the repository:
     ```sh
-    git clone https://github.com/kuro08/file-converter-gui.git
+    git clone https://github.com/kuro-jojo/file-converter-gui.git
     ```
 2. Navigate to the project directory:
     ```sh
