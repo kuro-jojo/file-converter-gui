@@ -1,21 +1,21 @@
 def convert_to_pdf(file_type: str, file_path: str, output_file: str) -> int:
-    import os
-
     """
-    Converts a file to PDF format based on the specified file type.
+    Converts a file to PDF format.
 
     Args:
-        file_type (str): The type of the file to be converted. Supported types are "img" and "doc".
-        file_path (str): The name of the input file to be converted.
-        output_file (str): The name of the output PDF file.
+        file_type (str): The type of the file to convert. Supported types are 'img' for images and 'doc' for Word documents.
+        file_path (str): The path to the input file that needs to be converted.
+        output_file (str): The desired path for the output PDF file. If not provided, the output file will have the same name as the input file with a .pdf extension.
 
     Returns:
-        int: A status code indicating the result of the conversion. Typically, 0 for success and non-zero for failure.
+        int: Returns 0 on successful conversion, -1 if the file does not exist or if the file type is unsupported.
     """
+    import os
+
     if not os.path.exists(file_path):
         print(f"{file_path} not found")
         return -1
-    
+
     file_name = (
         file_path.split("/")[-1] if "/" in file_path else file_path.split("\\")[-1]
     )
@@ -27,9 +27,9 @@ def convert_to_pdf(file_type: str, file_path: str, output_file: str) -> int:
 
     if not output_file.endswith(".pdf"):
         output_file = output_file + ".pdf"
-        
+
     output_file = output_path + output_file
-    
+
     match file_type:
         case "img":
             return from_image(file_path, output_file)
@@ -40,6 +40,19 @@ def convert_to_pdf(file_type: str, file_path: str, output_file: str) -> int:
 
 
 def from_image(image_file: str, output_file: str) -> int:
+    """
+    Converts an image file to a PDF file.
+
+    Args:
+        image_file (str): The path to the input image file. Supported formats are 'png', 'jpg', 'jpeg', 'gif'.
+        output_file (str): The path to the output PDF file.
+
+    Returns:
+        int: Returns 0 if the conversion is successful, -1 if the image file is not found or if the file format is not supported.
+
+    Raises:
+        FileNotFoundError: If the image file is not found.
+    """
     from PIL import Image
 
     image_extensions = ["png", "jpg", "jpeg", "gif"]
@@ -50,8 +63,8 @@ def from_image(image_file: str, output_file: str) -> int:
 
     try:
         with Image.open(image_file) as im:
-            image = im.convert("RGB")
-            image.save(output_file)
+            im = im.convert("RGB")
+            im.save(output_file)
     except FileNotFoundError:
         print("Image file not found")
         return -1
@@ -60,6 +73,16 @@ def from_image(image_file: str, output_file: str) -> int:
 
 
 def from_word(word_file: str, output_file: str) -> int:
+    """
+    Converts a Word document to a PDF file.
+
+    Args:
+        word_file (str): The path to the input Word document. Must have a .doc or .docx extension.
+        output_file (str): The path where the output PDF file will be saved.
+
+    Returns:
+        int: Returns 0 if the conversion is successful, -1 if the input file is not a valid Word document.
+    """
     from spire.doc import Document, FileFormat
 
     word_extensions = ["doc", "docx"]
@@ -74,4 +97,4 @@ def from_word(word_file: str, output_file: str) -> int:
     document.SaveToFile(output_file, FileFormat.PDF)
     document.Close()
 
-
+    return 0
