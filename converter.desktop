@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Kuro Converter
+Comment=Convert a file to another format
+Exec=converter
+Icon=/usr/share/icons/converter.png
+Terminal=true
+Type=Application
+Categories=Utility;Application;
